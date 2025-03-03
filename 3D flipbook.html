@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive 3D Flipbook</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(45deg, #2c3e50, #34495e);
+            font-family: 'Arial', sans-serif;
+            color: #855656;
+            transition: background 0.5s ease-in-out;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .book {
+            position: relative;
+            width: 320px;
+            height: 450px;
+            perspective: 1500px;
+        }
+
+        .page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-origin: left center;
+            transform-style: preserve-3d;
+            transition: transform 0.8s ease-in-out;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .front, .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            background: #f8f4e1;
+        }
+
+        .front {
+            backface-visibility: hidden;
+        }
+
+        .back {
+            transform: rotateY(180deg);
+            backface-visibility: hidden;
+        }
+
+        .page-number {
+            position: absolute;
+            bottom: 10px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        button {
+            background: #f39c12;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #e67e22;
+        }
+
+        .restart {
+            background: #e74c3c;
+        }
+
+        .restart:hover {
+            background: #c0392b;
+        }
+
+        .dark-mode {
+            background: black;
+            color: white;
+        }
+
+        .dark-mode .front, .dark-mode .back {
+            background: #333;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📖 The Mysterious Journey</h1>
+        <div class="book">
+            <div class="page" id="page1">
+                <div class="front">
+                    <h2>Chapter 1</h2>
+                    <p>You wake up in a dark forest. A path splits ahead...</p>
+                    <span class="page-number">Page 1</span>
+                    <button onclick="nextPage(1)">Next ➡</button>
+                </div>
+                <div class="back">
+                    <h2>The Choice</h2>
+                    <p>Do you go left (🏚️ Abandoned House) or right (🌲 Deep into the Woods)?</p>
+                    <button onclick="choosePath('left')">🏚️ Left</button>
+                    <button onclick="choosePath('right')">🌲 Right</button>
+                </div>
+            </div>
+
+            <div class="page" id="page2">
+                <div class="front">
+                    <h2 id="story-title">Your Path</h2>
+                    <p id="story-text">Your journey continues...</p>
+                    <span class="page-number">Page 3</span>
+                    <button onclick="nextPage(2)">Next ➡</button>
+                </div>
+                <div class="back">
+                    <h2>The Key</h2>
+                    <p>You find a mysterious key. Solve a puzzle to unlock the next step.</p>
+                    <button onclick="solvePuzzle()">🔑 Solve Puzzle</button>
+                </div>
+            </div>
+
+            <div class="page" id="page3">
+                <div class="front">
+                    <h2>The Secret Chamber</h2>
+                    <p>You unlocked a hidden passage. What will you do next?</p>
+                    <span class="page-number">Page 5</span>
+                    <button onclick="nextPage(3)">Next ➡</button>
+                </div>
+                <div class="back">
+                    <h2>The Ending</h2>
+                    <p>Your choices have led you to the ultimate secret.</p>
+                    <button onclick="restartBook()">🔄 Restart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button class="restart" onclick="restartBook()">🔄 Restart</button>
+            <button onclick="toggleDarkMode()">🌙 Dark Mode</button>
+            <button onclick="saveBookmark()">📌 Bookmark</button>
+        </div>
+    </div>
+
+    <script src="3D flipbook.js"></script>
+</body>
+</html>
+
+
+
